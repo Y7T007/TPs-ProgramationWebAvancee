@@ -50,11 +50,11 @@
                 $n=0;
                 if (isset($emails)){
                     foreach($emails as $email){
-                        validateEmail($email)? $status = "Valid" : $status = "Invalid";
+                        validateEmail($email)? $status = "<td color= 'green'>Valid</td>" : $status = "<td color= 'green'>Valid</td>";
                         echo " 
                         <tr>
                             <td>Email $n :".$email."</td>
-                            <td>".$status."</td>
+                            ".$status."
                             <td>fre</td>
                         </tr>";
                         $n+=1;
