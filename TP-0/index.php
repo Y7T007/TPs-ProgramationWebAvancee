@@ -19,37 +19,21 @@
                 </tr>
             </thead>
             <tbody>
-
-                <tr>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                </tr>
-                <tr>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                </tr>
-                <tr>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                </tr>
-                <tr>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                </tr>
-                <tr>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                </tr>
-                <tr>
-                    <td>Cell 1</td>
-                    <td>Cell 2</td>
-                    <td>Cell 3</td>
-                </tr>
+            <?php
+                $emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+                $n=0;
+                if (isset($emails)){
+                    foreach($emails as $email){
+                        echo " 
+                        <tr>
+                            <td>Email $n :".$email."</td>
+                            <td>Status</td>
+                            <td>fre</td>
+                        </tr>";
+                        $n+=1;
+                    }
+                }
+            ?>
             </tbody>
         </table>
     </div>
@@ -57,13 +41,3 @@
 </body>
 
 </html>
-<?php
-
-$emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-$n=0;
-if (isset($emails)){
-    foreach($emails as $email){
-        print "Email $n : ".$email."<br>";
-        $n+=1;
-    }
-}
