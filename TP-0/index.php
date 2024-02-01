@@ -50,7 +50,7 @@
                 $n=0;
                 if (isset($emails)){
                     foreach($emails as $email){
-                        validateEmail($email)? $status = "<td style='color:green;'>Valid</td>" : $status = "<td style='color:red;'>Invalid</td>";
+                        $status = validateEmail($email)? "<td style='color:green;'>Valid</td>" :"<td style='color:red;'>Invalid</td>";
                         echo " 
                         <tr>
                             <td>Email $n :".$email."</td>
