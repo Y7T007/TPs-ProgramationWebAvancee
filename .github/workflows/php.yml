@@ -30,7 +30,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer install --prefer-dist --no-progress composer php2static/php2static
 
     - name: Convert PHP to Static HTML
       run: vendor/bin/php2static build
