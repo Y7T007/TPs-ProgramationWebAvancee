@@ -1,5 +1,5 @@
 {
-    "name": "hello world php",
+    "name": "hello-world-php",
     "description": "Your project description",
     "type": "project",
     "require": {
