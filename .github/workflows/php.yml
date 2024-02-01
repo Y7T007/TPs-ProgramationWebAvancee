@@ -30,7 +30,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress composer require composer php2static/php2static
+      run: composer install --prefer-dist --no-progress 
 
     - name: Convert PHP to Static HTML
       run: vendor/bin/php2static build
@@ -40,8 +40,8 @@ jobs:
       with:
         branch: main
         folder: build
-    # // Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # // Docs: https://getcomposer.org/doc/articles/scripts.md
+    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
+    # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    # // - name: Run test suite
-    # //   run: composer run-script test
+    # - name: Run test suite
+    #   run: composer run-script test
