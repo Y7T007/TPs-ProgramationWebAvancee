@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>TP - 0</title>
+    <title>Untitled</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 </head>
 
@@ -19,7 +19,9 @@
                 </tr>
             </thead>
             <tbody>
-
+                <tr></tr>
+                <tr></tr>
+                <tr></tr>
                 <tr>
                     <td>Cell 1</td>
                     <td>Cell 2</td>
@@ -57,13 +59,3 @@
 </body>
 
 </html>
-<?php
-
-$emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-$n=0;
-if (isset($emails)){
-    foreach($emails as $email){
-        print "Email $n : ".$email."<br>";
-        $n+=1;
-    }
-}
