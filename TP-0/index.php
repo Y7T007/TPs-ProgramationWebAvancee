@@ -1,5 +1,6 @@
 <?php
-$emails = array(file_get_contents('Emails.txt'));
+
+$emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
 
 echo "hello world";
