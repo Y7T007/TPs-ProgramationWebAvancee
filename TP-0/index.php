@@ -8,6 +8,32 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 </head>
 
+
+<?php 
+
+// Dans ce cas j'ai utilise 3 criteres pour valider un email:
+    // 1. Verifier si l'email est vide
+    // 2. Verifier si l'email est valide
+    // 3. Verifier si le domaine de l'email existe
+
+    function validateEmail($email) {
+        if (empty($email)) {
+            return false;
+        }
+        
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+        
+        $domain = explode('@', $email)[1];
+        if (!checkdnsrr($domain, 'MX')) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+?>
 <body>
     <div class="table-responsive">
         <table class="table">
@@ -24,10 +50,11 @@
                 $n=0;
                 if (isset($emails)){
                     foreach($emails as $email){
+                        validateEmail($email)? $status = "Valid" : $status = "Invalid";
                         echo " 
                         <tr>
                             <td>Email $n :".$email."</td>
-                            <td>Status</td>
+                            <td>".$status."</td>
                             <td>fre</td>
                         </tr>";
                         $n+=1;
