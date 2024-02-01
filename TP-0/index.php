@@ -55,7 +55,7 @@
                         <tr>
                             <td>Email $n :".$email."</td>
                             ".$status."
-                            <td>fre</td>
+                            <td>".array_count_values($emails)[$email]."</td>
                         </tr>";
                         $n+=1;
                     }
@@ -68,3 +68,4 @@
 </body>
 
 </html>
+
