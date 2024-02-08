@@ -25,6 +25,7 @@ function validateEmail($email)
     // 3. Vérifier si le domaine de l'email existe
     $domain = explode('@', $email)[1];
     if (!checkdnsrr($domain, 'MX')) {
+        echo "DNS invalid de ce mail : $email";
         return false;
     }
 
@@ -130,7 +131,7 @@ function removeDuplicates($emails)
     <!-- Form for adding new email -->
     <form method="POST" action="">
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+        <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Email doit être au format abc@example.com">
         <button type="submit">Add Email</button>
     </form>
 
