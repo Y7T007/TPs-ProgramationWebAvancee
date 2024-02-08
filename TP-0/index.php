@@ -8,132 +8,153 @@
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 </head>
 
-
-<?php 
-
-// Dans ce cas j'ai utilise 3 criteres pour valider un email:
-
-    function validateEmail($email) {
-    // 1. Verifier si l'email est vide
-        if (empty($email)) {
-            return false;
-        }
-
-    // 2. Verifier si l'email est valide
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
-
-    // 3. Verifier si le domaine de l'email existe
-        $domain = explode('@', $email)[1];
-        if (!checkdnsrr($domain, 'MX')) {
-            return false;
-        }
-        
-        return true;
+<?php
+// Dans ce cas, j'ai utilisé 3 critères pour valider un email:
+function validateEmail($email)
+{
+    // 1. Vérifier si l'email est vide
+    if (empty($email)) {
+        return false;
     }
 
-    function removeDuplicates($emails) {
-        $uniqueEmails = array_unique($emails);
-        $updatedEmails = implode(PHP_EOL, $uniqueEmails);
-        file_put_contents('EmailsT.txt', $updatedEmails);
+    // 2. Vérifier si l'email est valide
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return false;
     }
-    
+
+    // 3. Vérifier si le domaine de l'email existe
+    $domain = explode('@', $email)[1];
+    if (!checkdnsrr($domain, 'MX')) {
+        return false;
+    }
+
+    return true;
+}
+
+function saveInvalidEmails($invalidEmails)
+{
+    $invalidEmailsText = implode(PHP_EOL, $invalidEmails);
+    file_put_contents('NonValidMails.txt', $invalidEmailsText);
+}
+
+
+function removeDuplicates($emails)
+{
+    sort($emails); 
+    $uniqueEmails = array_values(array_unique($emails));
+    $updatedEmails = implode(PHP_EOL, $uniqueEmails);
+    file_put_contents('EmailsT.txt', $updatedEmails);
+
+    return $uniqueEmails; 
+}
 ?>
+
 <body>
-    <div class="table-responsive">
+<div class="table-responsive">
     <h1>Q0 : afficher tous les emails dans le fichier Emails.txt</h1>
-
-        <table class="table">
-            <thead>
+    <table class="table">
+        <!-- Table header for Q0 -->
+        <thead>
+        <tr>
+            <th>File: Emails.txt</th>
+            <th>Status</th>
+            <th>Frequency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $n = 0;
+        if (isset($emails)) {
+            $invalidEmails = []; // Array to store invalid emails
+        
+            foreach ($emails as $email) {
+                $status = validateEmail($email) ? "<td style='color:green;'>Valid</td>" : "<td style='color:red;'>Invalid</td>";
+                echo "
                 <tr>
-                    <th>File: Emails.txt</th>
-                    <th>Status</th>
-                    <th>Frequency</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-                $emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-                $n=0;
-                if (isset($emails)){
-                    foreach($emails as $email){
-                        $status = validateEmail($email)? "<td style='color:green;'>Valid</td>" :"<td style='color:red;'>Invalid</td>";
-                        echo " 
-                        <tr>
-                            <td>Email $n :".$email."</td>
-                            ".$status."
-                            <td>".array_count_values($emails)[$email]."</td>
-                        </tr>";
-                        $n+=1;
-                    }
+                    <td>Email $n :" . $email . "</td>
+                    " . $status . "
+                    <td>" . array_count_values($emails)[$email] . "</td>
+                </tr>";
+        
+                $n += 1;
+        
+                if (!validateEmail($email)) {
+                    $invalidEmails[] = $email; // Add invalid email to the array
                 }
+            }
+            saveInvalidEmails($invalidEmails);
+        }
+        ?>
+        </tbody>
+    </table>
 
-            ?>
-            </tbody>
-        </table>
-
-        <center><h1>Q1 : supprimer les doublons de la liste des emails</h1></center>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>File: Emails.txt</th>
-                    <th>Status</th>
-                    <th>Frequency</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php
-                $emailCounts = array_count_values($emails);
-                foreach($emails as $email){
-                    $status = validateEmail($email)? "<td style='color:green;'>Valid</td>" :"<td style='color:red;'>Invalid</td>";
-                    if(validateEmail($email) && $emailCounts[$email] > 1) {
-                        echo " 
+    <center>
+        <h1>Q1 : supprimer les doublons de la liste des emails</h1>
+    </center>
+    <table class="table">
+        <!-- Table header for Q1 -->
+        <thead>
+        <tr>
+            <th>File: Emails.txt</th>
+            <th>Status</th>
+            <th>Frequency</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        // Get counts of each email
+        $emailCounts = array_count_values($emails);
+        foreach ($emails as $email) {
+            $status = validateEmail($email) ? "<td style='color:green;'>Valid</td>" : "<td style='color:red;'>Invalid</td>";
+            if (validateEmail($email) && $emailCounts[$email] > 1) {
+                echo "
                         <tr>
-                            <td>Email $n :".$email."</td>
-                            ".$status."
-                            <td>".$emailCounts[$email]."</td>
+                            <td>Email $n :" . $email . "</td>
+                            " . $status . "
+                            <td>" . $emailCounts[$email] . "</td>
                         </tr>";
-                    };  
-                    $n+=1;
-                }
-            ?>
-            <?php
-                removeDuplicates($emails);
-            ?>  
-            </tbody>
-        </table>
+            };
+            $n += 1;
+        }
+        ?>
+        <?php
 
-        <form method="POST" action="">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <button type="submit">Add Email</button>
-                </form>
 
-                <?php
-                    if (isset($_POST['email'])) {
-                        $email = $_POST['email'];
-                        $emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-                        if (!in_array($email, $emails)) {
-                            if (validateEmail($email)) {
-                                file_put_contents('Emails.txt', $email . PHP_EOL, FILE_APPEND);
-                                echo "<script>location.reload();</script>";
-                            } else {
-                                echo "<script>alert('Invalid Email');</script>";
-                            }
-                        } else {
-                            echo "<script>alert('Email already exists');</script>";
-                        }
-                    }
-                ?>         
+        // Remove duplicates and update Emails.txt
+        $emails = removeDuplicates($emails);
+        ?>
+        </tbody>
+    </table>
 
-            
+    <!-- Form for adding new email -->
+    <form method="POST" action="">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="submit">Add Email</button>
+    </form>
 
-    </div>
-    <br><br><br><br><br><br><br><br>
+    <?php
+    // Handle form submission
+    if (isset($_POST['email'])) {
+        $email = $_POST['email'];
+        $emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        if (!in_array($email, $emails)) {
+            if (validateEmail($email)) {
+                file_put_contents('Emails.txt', $email . PHP_EOL, FILE_APPEND);
+                echo "<script>location.reload();</script>";
+            } else {
+                echo "<script>alert('Invalid Email');</script>";
+            }
+        } else {
+            echo "<script>alert('Email already exists');</script>";
+        }
+    }
+    ?>
+</div>
+<br><br><br><br><br><br><br><br>
 
-   
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
