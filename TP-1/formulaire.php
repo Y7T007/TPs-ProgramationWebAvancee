@@ -80,6 +80,8 @@
                 <label for="Bd">Bd</label>
                 <input type="checkbox" name="modules" id="Bd" value="Bd"><br><br>
 
+            <h1>Vos Remarques</h1>
+            
             <label for="nb_prj">Nombre de projets realises cette annee : </label>
                 <select name="nb_prj" id="nb_prj">
                     <option value="0">0</option>
