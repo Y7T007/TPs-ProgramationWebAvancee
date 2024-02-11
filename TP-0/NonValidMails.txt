@@ -1,7 +1,3 @@
 jane.doe@exam123e.com
 emily.wilson@examplecom
 ava.martinezexample.com
-vv
-natalie.carter@emple.com
-missingdomain@example
-invalid@characters#example.com
