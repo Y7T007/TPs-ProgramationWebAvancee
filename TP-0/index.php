@@ -25,7 +25,6 @@ function validateEmail($email)
     // 3. Vérifier si le domaine de l'email existe
     $domain = explode('@', $email)[1];
     if (!checkdnsrr($domain, 'MX')) {
-        echo "DNS invalid de ce mail : $email";
         return false;
     }
 
@@ -52,7 +51,7 @@ function removeDuplicates($emails)
 
 <body>
 <div class="table-responsive">
-    <h1>Q0 : afficher tous les emails dans le fichier Emails.txt</h1>
+<!--    <h1>Q0 : afficher tous les emails dans le fichier Emails.txt</h1>-->
     <table class="table">
         <!-- Table header for Q0 -->
         <thead>
@@ -63,6 +62,56 @@ function removeDuplicates($emails)
         </tr>
         </thead>
         <tbody>
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean">
+            <div class="container"><a class="navbar-brand" href="#">TP - 0</a>
+                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navcol-1">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link active" ">Author : Yassir WAHID (Y7T007)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div>
+            Importer un nouveat fichier texte contenant les emails :
+            <br><i> (Si aucun fichier n'a ete importer le fichier Emails.txt par defaut sera charger)</i>
+
+            <input type="file" name="file" id="file" onchange="displayFileContent(this)">
+            
+            <div id="file-content" style="border: 1px solid black; padding: 10px; margin-top: 20px;"></div>
+            
+            <script>
+                function displayFileContent(fileInput) {
+                    let file;
+
+                    if (fileInput && fileInput.files.length > 0) {
+                        // If a file is selected, use it
+                        file = fileInput.files[0];
+                    } else {
+                        // If no file is selected, use the default file
+                        // This assumes that the file is on a server and accessible via a URL
+                        // If the file is on the client's machine, you would need to use a different method to read it
+                        fetch('./Emails.txt')
+                            .then(response => response.text())
+                            .then(content => {
+                                document.getElementById('file-content').innerText = content;
+                            })
+                            .catch(error => console.error('Error:', error));
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const content = e.target.result;
+                        document.getElementById('file-content').innerText = content;
+                    };
+                    reader.readAsText(file);
+                }
+
+                // Call the function immediately to load the default file
+                displayFileContent(null);
+            </script>
+        </div>
         <?php
         $emails = file('./Emails.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
         $n = 0;
