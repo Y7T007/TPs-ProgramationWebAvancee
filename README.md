@@ -1,5 +1,5 @@
 # TP-0: Gestionnaire d'Emails
-Ce programme a été conçu dans le cadre du TP-O (Travaux Pratiques - Optionnel) pour la gestion des adresses emails stockées dans un fichier Emails.txt. L'objectif est de fournir un ensemble de fonctionnalités permettant la manipulation efficace de ces adresses.
+Ce programme a été conçu dans le cadre du TP-0  ( Encadré par Prof. AL ACHHAB ) pour la gestion des adresses emails stockées dans un fichier Emails.txt. L'objectif est de fournir un ensemble de fonctionnalités permettant la manipulation efficace de ces adresses.
 
 ## Fonctionnalités
 ### 1. Suppression des adresses non valides
