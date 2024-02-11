@@ -26,7 +26,7 @@
             </div>
         </div>
     </nav>
-    <header class="masthead" style="background-image:url('intro-bg.jpg');">
+    <header class="masthead" style="background-image:url('./assets/img/intro-bg.jpg');">
         <div class="intro-body">
             <div class="container">
                 <div class="row">
@@ -99,7 +99,7 @@
             </div>
         </div>
     </section>
-    <section class="text-center download-section content-section" id="download" style="background-image:url('downloads-bg.jpg');">
+    <section class="text-center download-section content-section" id="download" style="background-image:url('./assets/img/downloads-bg.jpg');">
         <div class="container">
             <div class="col-lg-8 mx-auto">
                 <h1>Q1: Suppression des emails invalides</h1>
@@ -217,7 +217,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <section class="text-center download-section content-section" id="download-1" style="background-image:url('downloads-bg.jpg');">
+                    <section class="text-center download-section content-section" id="download-1" style="background-image:url('./assets/img/downloads-bg.jpg');">
                         <div class="container">
                             <div class="col-lg-8 mx-auto">
                                 <h1>Q3: Suppression des doublons et Tri</h1>
