@@ -134,7 +134,7 @@ function removeDuplicates($emails)
                     }
                     ?>
                 </div>
-                <a href="./EmailsT.txt" download>Telecharger le nouveau fichier</a>
+                <a href="./Emails.txt" download>Telecharger le nouveau fichier</a>
             </div>
             <div style="width: 50%; height: 400px;display: flex;flex-direction: column;justify-content:space-between;align-items: center">
                 <h4>Emails supprimés</h4>
