@@ -65,29 +65,29 @@
                 <input class="form-control" type="text" required="" name="title" placeholder="Ex. Ensa Tetouan Computer Science's Student">
             </div>
                 <div class="col" style="margin-top: 13px;margin-bottom: 25px;">
-                    <p><strong>Description</strong></p><input class="form-control" type="text" required="" name="" placeholder="Ex. Description">
+                    <p><strong>Description</strong></p><input class="form-control" type="text" required="" name="description" placeholder="Ex. Description">
                 </div>
                 <div class="form-group mb-3">
                     <div class="row">
                         <div class="col">
-                            <p><strong>Date Of Birth</strong>&nbsp;<span class="text-danger">*</span></p><input class="form-control" type="date" required="" name="">
+                            <p><strong>Date Of Birth</strong>&nbsp;<span class="text-danger">*</span></p><input class="form-control" type="date" required="" name="dob">
                         </div>
                     </div>
                 </div>
                 <div class="form-group mb-3">
-                    <p><strong>Email&nbsp;</strong><span class="text-danger">*</span></p><input class="form-control" type="email" name="" placeholder="Ex. contact@yassir-wahid.tech">
+                    <p><strong>Email&nbsp;</strong><span class="text-danger">*</span></p><input class="form-control" type="email" name="email" placeholder="Ex. contact@yassir-wahid.tech">
                 </div>
                 <div class="form-group mb-3">
-                    <p><strong>Phone (GSM)&nbsp;</strong><span class="text-danger">*</span></p><input class="form-control" type="tel" name="" placeholder="Ex. +212 612 345 678">
+                    <p><strong>Phone (GSM)&nbsp;</strong><span class="text-danger">*</span></p><input class="form-control" type="tel" name="phone" placeholder="Ex. +212 612 345 678">
                 </div>
                 <div class="form-group mb-3">
-                    <p><strong>Address&nbsp;</strong><span class="text-danger">*</span></p><input class="form-control" type="text" required="" name="" placeholder="Ex. Room No-361, 33/1, 3rd Floor">
+                    <p><strong>Address&nbsp;</strong><span class="text-danger">*</span></p><input class="form-control" type="text" required="" name="address" placeholder="Ex. Room No-361, 33/1, 3rd Floor">
                 </div>
                 <div class="form-group mb-3"><p><strong>Your Picture </strong><span class="text-danger">*</span></p>
 <div class="file">
             <!-- Upload image input-->
             <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm ">
-                <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                <input id="upload" type="file" onchange="readURL(this);" name="image" class="form-control border-0">
                 <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                 <div class="input-group-append">
                     <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>

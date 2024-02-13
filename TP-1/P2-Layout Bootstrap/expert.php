@@ -14,15 +14,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = $_POST["address"];
     // Add more fields as needed
 
-    // Store data in session variables
-    $_SESSION["firstName"] = $firstName;
-    $_SESSION["lastName"] = $lastName;
-    $_SESSION["title"] = $title;
-    $_SESSION["description"] = $description;
-    $_SESSION["dob"] = $dob;
-    $_SESSION["email"] = $email;
-    $_SESSION["phone"] = $phone;
-    $_SESSION["address"] = $address;
+// Store data in session
+    $_SESSION["firstName"] = $_POST["firstName"];
+    $_SESSION["lastName"] = $_POST["lastName"];
+    $_SESSION["title"] = $_POST["title"];
+    $_SESSION["description"] = $_POST["description"];
+    $_SESSION["dob"] = $_POST["dob"];
+    $_SESSION["email"] = $_POST["email"];
+    $_SESSION["phone"] = $_POST["phone"];
+    $_SESSION["address"] = $_POST["address"];
+    $_SESSION["image"] = $_POST["image"];
     // Add more fields as needed
 
     // Redirect to the next page

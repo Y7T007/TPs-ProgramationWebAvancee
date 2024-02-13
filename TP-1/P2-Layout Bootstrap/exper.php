@@ -69,7 +69,7 @@ echo "Address: " . $_SESSION["address"] . "<br>";
 
             </div>
             <div class="justify-content-center d-flex form-group mb-3">
-                <button class="btn btn-success" type="button" onclick="addForm()">Add New Expertise</button>
+                <button class="btn btn-success add-language-button" type="button" onclick="addForm()">Add New Expertise</button>
             </div>
 
         <h1 class="text-center text-capitalize" style="margin: 55px;">Formation</h1>
@@ -96,216 +96,167 @@ echo "Address: " . $_SESSION["address"] . "<br>";
 <script src="assets/js/Application-Form-submit-form.js"></script>
 <script src="assets/js/Multi-step-form-script.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        document.querySelector("#submit-btn").addEventListener("click", function() {
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector("#submit-btn").addEventListener("click", function () {
             submitForm();
         });
 
-        document.querySelector("#add-expertise-btn").addEventListener("click", function() {
+        document.querySelector("#add-expertise-btn").addEventListener("click", function () {
             addExpertiseField();
         });
 
-        document.querySelector("#add-formation-btn").addEventListener("click", function() {
+        document.querySelector("#add-formation-btn").addEventListener("click", function () {
             addFormationField();
         });
     });
 
-    function addExpertiseField() {
-        var expertiseForm = document.querySelector("#application-form-expertise");
-        var clone = expertiseForm.querySelector(".form-group").lastElementChild.cloneNode(true);
-        clone.querySelector("input").value = "";
-        expertiseForm.querySelector(".form-group").appendChild(clone);
+    let formCounter = 0;
+
+    function addForm() {
+        const formContainer = document.getElementById('form-container');
+
+        const fieldset = document.createElement('fieldset');
+        const legend = document.createElement('legend');
+        const hr = document.createElement('hr');
+        legend.appendChild(hr);
+        fieldset.appendChild(legend);
+
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row';
+
+        const companyCol = createInputCol('Company Name', 'company');
+        const jobTitleCol = createInputCol('Job Title', 'job_title');
+
+        rowDiv.appendChild(companyCol);
+        rowDiv.appendChild(jobTitleCol);
+
+        const descriptionCol = createInputCol('Description', 'description', 'col', 'margin-top: 13px; margin-bottom: 25px;');
+        const dateRow = createDateRow();
+
+        fieldset.appendChild(rowDiv);
+        fieldset.appendChild(descriptionCol);
+        fieldset.appendChild(dateRow);
+
+        formContainer.appendChild(fieldset);
+
+        formCounter++;
     }
 
-    function addFormationField() {
-        var formationForm = document.querySelector("#application-form-formation");
-        var clone = formationForm.querySelector(".form-group").lastElementChild.cloneNode(true);
-        clone.querySelector("input").value = "";
-        formationForm.querySelector(".form-group").appendChild(clone);
+    function createInputCol(label, name, colClass = 'col', style = '', type = '') {
+        const colDiv = document.createElement('div');
+        colDiv.className = colClass;
+
+        const labelElement = document.createElement('p');
+        labelElement.innerHTML = `<strong>${label}</strong>`;
+        colDiv.appendChild(labelElement);
+
+        const inputElement = document.createElement('input');
+        inputElement.className = 'form-control';
+        inputElement.type = type;
+        inputElement.required = true;
+        inputElement.name = `${name}[${formCounter}]`;
+        inputElement.placeholder = `Ex. ${label}`;
+        colDiv.appendChild(inputElement);
+
+        colDiv.style.cssText = style;
+
+        return colDiv;
     }
 
-    function submitForm() {
-        var expertiseData = [];
-        var expertiseForm = document.getElementById("application-form-expertise");
-        var expertiseFields = expertiseForm.querySelectorAll(".form-group");
+    function createDateRow(startDateName, endDateName) {
+        const formGroupDiv = document.createElement('div');
+        formGroupDiv.className = 'form-group mb-3';
 
-        expertiseFields.forEach(function(field) {
-            var data = {
-                company: field.querySelector("input[name='company[]']").value,
-                job_title: field.querySelector("input[name='job_title[]']").value,
-                description: field.querySelector("input[name='description[]']").value,
-                start_date: field.querySelector("input[name='start_date[]']").value,
-                end_date: field.querySelector("input[name='end_date[]']").value
-            };
-            expertiseData.push(data);
-        });
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row';
 
-        var formationData = [];
-        var formationForm = document.getElementById("application-form-formation");
-        var formationFields = formationForm.querySelectorAll(".form-group");
+        const startDateCol = createInputCol('Starting Date', startDateName, 'col', '', 'date');
+        const endDateCol = createInputCol('End Date', endDateName, 'col', '', 'date');
 
-        formationFields.forEach(function(field) {
-            var data = {
-                school: field.querySelector("input[name='school[]']").value,
-                study_field: field.querySelector("input[name='study_field[]']").value,
-                description: field.querySelector("input[name='formation_description[]']").value,
-                start_date: field.querySelector("input[name='formation_start_date[]']").value,
-                end_date: field.querySelector("input[name='formation_end_date[]']").value
-            };
-            formationData.push(data);
-        });
+        rowDiv.appendChild(startDateCol);
+        rowDiv.appendChild(endDateCol);
 
-        // Log data for testing (you can replace this with an AJAX request to send data to the server)
-        console.log("Expertise Data:", expertiseData);
-        console.log("Formation Data:", formationData);
+        formGroupDiv.appendChild(rowDiv);
+
+        formCounter++; // Incrementing here
+
+        return formGroupDiv;
     }
 </script>
 <script>
-let formCounter = 1;
+    let formationCounter = 1;
 
-function addForm() {
-  const formContainer = document.getElementById('form-container');
+    function addFormation() {
+        const formationContainer = document.getElementById('formation-container');
 
-  const fieldset = document.createElement('fieldset');
-  const legend = document.createElement('legend');
-  const hr = document.createElement('hr');
-  legend.appendChild(hr);
-  fieldset.appendChild(legend);
+        const fieldset = document.createElement('fieldset');
+        const legend = document.createElement('legend');
+        const hr = document.createElement('hr');
+        legend.appendChild(hr);
+        fieldset.appendChild(legend);
 
-  const rowDiv = document.createElement('div');
-  rowDiv.className = 'row';
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row';
 
-  const companyCol = createInputCol('Company Name', 'company[]');
-  const jobTitleCol = createInputCol('Job Title', 'job_title[]');
+        const schoolCol = createInputCol('School Name', 'school');
+        const studyFieldCol = createInputCol('Study Field', 'study_field');
 
-  rowDiv.appendChild(companyCol);
-  rowDiv.appendChild(jobTitleCol);
+        rowDiv.appendChild(schoolCol);
+        rowDiv.appendChild(studyFieldCol);
 
-  const descriptionCol = createInputCol('Description', 'description[]', 'col', 'margin-top: 13px;margin-bottom: 25px;');
-  const dateRow = createDateRow();
+        const descriptionCol = createInputCol('Description', 'formation_description', 'col', 'margin-top: 13px;margin-bottom: 25px;');
+        const dateRow = createDateRow('formation_start_date', 'formation_end_date');
 
-  fieldset.appendChild(rowDiv);
-  fieldset.appendChild(descriptionCol);
-  fieldset.appendChild(dateRow);
+        fieldset.appendChild(rowDiv);
+        fieldset.appendChild(descriptionCol);
+        fieldset.appendChild(dateRow);
 
-  formContainer.appendChild(fieldset);
+        formationContainer.appendChild(fieldset);
 
-  formCounter++;
-}
+        formationCounter++;
+    }
 
-function createInputCol(label, name, colClass = 'col', style = '') {
-  const colDiv = document.createElement('div');
-  colDiv.className = colClass;
+    function createInputCol(label, name, colClass = 'col', style = '', type = 'text') {
+        const colDiv = document.createElement('div');
+        colDiv.className = colClass;
 
-  const labelElement = document.createElement('p');
-  labelElement.innerHTML = `<strong>${label}</strong>`;
-  colDiv.appendChild(labelElement);
+        const labelElement = document.createElement('p');
+        labelElement.innerHTML = `<strong>${label}</strong>&nbsp;<span class="text-danger">*</span>`;
+        colDiv.appendChild(labelElement);
 
-  const inputElement = document.createElement('input');
-  inputElement.className = 'form-control';
-  inputElement.type = 'text';
-  inputElement.required = true;
-  inputElement.name = `${name}[${formCounter}]`;
-  inputElement.placeholder = `Ex. ${label}`;
-  colDiv.appendChild(inputElement);
+        const inputElement = document.createElement('input');
+        inputElement.className = 'form-control';
+        inputElement.type = type;
+        inputElement.required = true;
+        inputElement.name = `${name}[${formationCounter}]`;
+        inputElement.placeholder = `Ex. ${label}`;
+        colDiv.appendChild(inputElement);
 
-  colDiv.style.cssText = style;
+        colDiv.style.cssText = style;
 
-  return colDiv;
-}
+        return colDiv;
+    }
 
-function createDateRow() {
-  const formGroupDiv = document.createElement('div');
-  formGroupDiv.className = 'form-group mb-3';
+    function createDateRow(startDateName, endDateName) {
+        const formGroupDiv = document.createElement('div');
+        formGroupDiv.className = 'form-group mb-3';
 
-  const rowDiv = document.createElement('div');
-  rowDiv.className = 'row';
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row';
 
-  const startDateCol = createInputCol('Starting Date', 'start_date[]');
-  const endDateCol = createInputCol('End Date', 'end_date[]');
+        const startDateCol = createInputCol('Starting Date', startDateName, 'col', '', 'date');
+        const endDateCol = createInputCol('End Date', endDateName, 'col', '', 'date');
 
-  rowDiv.appendChild(startDateCol);
-  rowDiv.appendChild(endDateCol);
+        rowDiv.appendChild(startDateCol);
+        rowDiv.appendChild(endDateCol);
 
-  formGroupDiv.appendChild(rowDiv);
+        formGroupDiv.appendChild(rowDiv);
 
-  return formGroupDiv;
-}
-
-</script>
-<script>
-let formationCounter = 1;
-
-function addFormation() {
-  const formationContainer = document.getElementById('formation-container');
-
-  const fieldset = document.createElement('fieldset');
-  const legend = document.createElement('legend');
-  const hr = document.createElement('hr');
-  legend.appendChild(hr);
-  fieldset.appendChild(legend);
-
-  const rowDiv = document.createElement('div');
-  rowDiv.className = 'row';
-
-  const schoolCol = createInputCol('School Name', 'school[]');
-  const studyFieldCol = createInputCol('Study Field', 'study_field[]');
-
-  rowDiv.appendChild(schoolCol);
-  rowDiv.appendChild(studyFieldCol);
-
-  const descriptionCol = createInputCol('Description', 'formation_description[]', 'col', 'margin-top: 13px;margin-bottom: 25px;');
-  const dateRow = createDateRow('formation_start_date[]', 'formation_end_date[]');
-
-  fieldset.appendChild(rowDiv);
-  fieldset.appendChild(descriptionCol);
-  fieldset.appendChild(dateRow);
-
-  formationContainer.appendChild(fieldset);
-
-  formationCounter++;
-}
-
-function createInputCol(label, name, colClass = 'col', style = '') {
-  const colDiv = document.createElement('div');
-  colDiv.className = colClass;
-
-  const labelElement = document.createElement('p');
-  labelElement.innerHTML = `<strong>${label}</strong>&nbsp;<span class="text-danger">*</span>`;
-  colDiv.appendChild(labelElement);
-
-  const inputElement = document.createElement('input');
-  inputElement.className = 'form-control';
-  inputElement.type = 'text';
-  inputElement.required = true;
-  inputElement.name = `${name}[${formationCounter}]`;
-  inputElement.placeholder = `Ex. ${label}`;
-  colDiv.appendChild(inputElement);
-
-  colDiv.style.cssText = style;
-
-  return colDiv;
-}
-
-function createDateRow(startDateName, endDateName) {
-  const formGroupDiv = document.createElement('div');
-  formGroupDiv.className = 'form-group mb-3';
-
-  const rowDiv = document.createElement('div');
-  rowDiv.className = 'row';
-
-  const startDateCol = createInputCol('Starting Date', startDateName);
-  const endDateCol = createInputCol('End Date', endDateName);
-
-  rowDiv.appendChild(startDateCol);
-  rowDiv.appendChild(endDateCol);
-
-  formGroupDiv.appendChild(rowDiv);
-
-  return formGroupDiv;
-}
+        return formGroupDiv;
+    }
 
 </script>
+
 </body>
 
 </html>

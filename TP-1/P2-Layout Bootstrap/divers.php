@@ -1,100 +1,227 @@
 <?php
 session_start();
 
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Expertise
-    foreach ($_POST['company'] as $key => $company) {
-        echo "Company: " . htmlspecialchars($company[1]) . "<br>";
-    }
-    foreach ($_POST['job_title'] as $key => $job_title) {
-        echo "Job Title: " . htmlspecialchars($job_title[1]) . "<br>";
-    }
-    foreach ($_POST['description'] as $key => $description) {
-        echo "Description: " . htmlspecialchars($description[1]) . "<br>";
-    }
-    // Undefined fields (Starting Date and End Date) are not processed because their names are not defined in the form
 
-    // Formation
-    foreach ($_POST['school'] as $key => $school) {
-        echo "School: " . htmlspecialchars($school[1]) . "<br>";
-    }
-    foreach ($_POST['study_field'] as $key => $study_field) {
-        echo "Study Field: " . htmlspecialchars($study_field[1]) . "<br>";
-    }
-    foreach ($_POST['formation_description'] as $key => $formation_description) {
-        echo "Formation Description: " . htmlspecialchars($formation_description[1]) . "<br>";
-    }
-    foreach ($_POST['formation_start_date'] as $key => $formation_start_date) {
-        echo "Formation Starting Date: " . htmlspecialchars($formation_start_date[1]) . "<br>";
-    }
-    foreach ($_POST['formation_end_date'] as $key => $formation_end_date) {
-        echo "Formation End Date: " . htmlspecialchars($formation_end_date[1]) . "<br>";
-    }
-    // Handle expertise form submission
-    if (isset($_POST["expertise_data"])) {
-        $_SESSION["expertise_data"] = $_POST["expertise_data"];
+    // Initialize or retrieve the session data
+    if (!isset($_SESSION['form_data'])) {
+        $_SESSION['form_data'] = [];
     }
 
-    // Handle formation form submission
-    if (isset($_POST["formation_data"])) {
-        $_SESSION["formation_data"] = $_POST["formation_data"];
+    // Process expertise data
+    if (isset($_POST['company']) && isset($_POST['job_title']) && isset($_POST['description']) && isset($_POST['undefined'])) {
+        $expertiseData = [];
+
+        foreach ($_POST['company'] as $index => $company) {
+            $expertise = [
+                'company' => $company,
+                'job_title' => $_POST['job_title'][$index],
+                'description' => $_POST['description'][$index],
+                'start_date' => $_POST['undefined'][$index],
+                'end_date' => $_POST['undefined'][$index],
+            ];
+
+            // Display the collected expertise data
+            echo "<h2>Expertise $index:</h2>";
+            echo "Company: " . $expertise['company'] . "<br>";
+            echo "Job Title: " . $expertise['job_title'] . "<br>";
+            echo "Description: " . $expertise['description'] . "<br>";
+            echo "Start Date: " . $expertise['start_date'] . "<br>";
+            echo "End Date: " . $expertise['end_date'] . "<br>";
+
+            $expertiseData[] = $expertise;
+        }
+
+        $_SESSION['form_data']['expertise'] = $expertiseData;
     }
-}
 
-// Echo the transmitted values
-if (isset($_SESSION["firstName"])) {
-    echo "First Name: " . $_SESSION["firstName"] . "<br>";
-    echo "Last Name: " . $_SESSION["lastName"] . "<br>";
-    echo "Title: " . $_SESSION["title"] . "<br>";
-    echo "Description: " . $_SESSION["description"] . "<br>";
-    echo "Date of Birth: " . $_SESSION["dob"] . "<br>";
-    echo "Email: " . $_SESSION["email"] . "<br>";
-    echo "Phone: " . $_SESSION["phone"] . "<br>";
-    echo "Address: " . $_SESSION["address"] . "<br>";
-}
+    // Process formations data
+    if (isset($_POST['school']) && isset($_POST['study_field']) && isset($_POST['formation_description']) && isset($_POST['formation_start_date']) && isset($_POST['formation_end_date'])) {
+        $formationsData = [];
 
-if (isset($_SESSION["expertise_data"])) {
-    echo "<h2>Expertise Data:</h2>";
-    foreach ($_SESSION["expertise_data"] as $data) {
-        echo "Company: " . $data["company"] . "<br>";
-        echo "Job Title: " . $data["job_title"] . "<br>";
-        echo "Description: " . $data["description"] . "<br>";
-        echo "Start Date: " . $data["start_date"] . "<br>";
-        echo "End Date: " . $data["end_date"] . "<br><br>";
-    }
-}
+        foreach ($_POST['school'] as $index => $school) {
+            $formation = [
+                'school' => $school,
+                'study_field' => $_POST['study_field'][$index],
+                'formation_description' => $_POST['formation_description'][$index],
+                'formation_start_date' => $_POST['formation_start_date'][$index],
+                'formation_end_date' => $_POST['formation_end_date'][$index],
+            ];
 
-if (isset($_SESSION["formation_data"])) {
-    echo "<h2>Formation Data:</h2>";
-    foreach ($_SESSION["formation_data"] as $data) {
-        echo "School: " . $data["school"] . "<br>";
-        echo "Study Field: " . $data["study_field"] . "<br>";
-        echo "Description: " . $data["description"] . "<br>";
-        echo "Start Date: " . $data["start_date"] . "<br>";
-        echo "End Date: " . $data["end_date"] . "<br><br>";
+            // Display the collected formation data
+            echo "<h2>Formation $index:</h2>";
+            echo "School: " . $formation['school'] . "<br>";
+            echo "Study Field: " . $formation['study_field'] . "<br>";
+            echo "Description: " . $formation['formation_description'] . "<br>";
+            echo "Start Date: " . $formation['formation_start_date'] . "<br>";
+            echo "End Date: " . $formation['formation_end_date'] . "<br>";
+
+            $formationsData[] = $formation;
+        }
+
+        $_SESSION['form_data']['formations'] = $formationsData;
     }
 }
 ?>
-<?php
-// Check if the form is submitted using POST method
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Loop through all POST parameters and print their values
-    foreach ($_POST as $key => $value) {
-        echo htmlspecialchars($key) . ": " . htmlspecialchars($value) . "<br>";
-    }
-} else {
-    // If the form is not submitted using POST method, display an error message
-    echo "Form not submitted.";
-}
-?>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-}
-?>
+
+
+
 <!DOCTYPE html>
+
 <html data-bs-theme="light" lang="en">
 
-<!-- Rest of your HTML code -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>CV Generator</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="assets/css/Application-Form.css">
+    <link rel="stylesheet" href="assets/css/Multi-step-form.css">
+    <link rel="stylesheet" href="assets/css/Navbar-Centered-Links-icons.css">
+    <link rel="stylesheet" href="assets/css/Section-Title.css">
+    <link rel="stylesheet" href="assets/css/Steps-Progressbar.css">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md bg-body py-3">
+    <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"><span>Yassir WAHID (Y7T007)</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-3"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-3">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link active" href="#">TP-1</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Partie 1</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Partie 2</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="title-div" style="width: 509px; margin-top: 41px;">
+    <h1>CV GENERATOR</h1>
+</div>
+<section style="margin-top: 44px;">
+    <section></section>
+    <div class="steps-progressbar">
+        <ul>
+            <li class="previous">About</li>
+            <li class="previous">Expertise</li>
+            <li class="active">Divers</li>
+        </ul>
+    </div>
+    <h1 class="text-center text-capitalize" style="margin: 55px;">Divers</h1>
+    <div class="container">
+        <form action="process_data.php" method="POST" id="cvForm">
+            <h3>Skills</h3>
+            <div class="form-group mb-3">
+                <!-- Skills will be dynamically added here using JavaScript -->
+            </div>
+            <button class="btn btn-success" type="button" id="add-skill-button">Add New Skill</button>
+            <button class="btn btn-danger" type="button" id="delete-skill-button">Delete Last Skill</button>
+            <br><br><br>
+
+            <h3>Languages</h3>
+            <!-- Checkbox inputs for languages -->
+            <div class="row">
+                <div class="col">
+                    <input type="checkbox" id="english" name="language" value="English">
+                    <label for="english">English</label><br>
+                    <input type="checkbox" id="spanish" name="language" value="Spanish">
+                    <label for="spanish">Spanish</label><br>
+                    <input type="checkbox" id="mandarin" name="language" value="Mandarin">
+                    <label for="mandarin">Mandarin</label><br>
+                    <input type="checkbox" id="hindi" name="language" value="Hindi">
+                    <label for="hindi">Hindi</label><br>
+                    <input type="checkbox" id="french" name="language" value="French">
+                    <label for="french">French</label><br>
+
+
+                </div>
+                <div class="col">
+
+                    <input type="checkbox" id="russian" name="language" value="Russian">
+                    <label for="russian">Russian</label><br>
+                    <input type="checkbox" id="portuguese" name="language" value="Portuguese">
+                    <label for="portuguese">Portuguese</label><br>
+                    <input type="checkbox" id="indonesian" name="language" value="Indonesian">
+                    <label for="indonesian">Indonesian</label><br>
+                    <input type="checkbox" id="german" name="language" value="German">
+                    <label for="german">German</label><br>
+                    <input type="checkbox" id="arabic" name="language" value="Arabic">
+                    <label for="arabic">Arabic</label><br>
+
+                </div>
+            </div>
+            <br><br><br>
+            <div class="justify-content-center d-flex form-group mb-3">
+                <div id="submit-btn">
+                    <div class="row">
+                        <button class="btn btn-primary btn-light m-0 rounded-pill px-4" type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col">
+        <h3 id="fail" class="text-center text-danger d-none"><br>Form not Submitted&nbsp;<a href="contact.html">Try Again</a><br><br></h3>
+        <h3 id="success-1" class="text-center text-success d-none"><br>Form Submitted Successfully&nbsp;<a href="contact.html">Send Another Response</a><br><br></h3>
+    </div>
+</section>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/Application-Form-Bootstrap-Image-Uploader.js"></script>
+<script src="assets/js/Multi-step-form-script.js"></script>
+<script>
+    let skillCount = 0;
+
+    // Function to create a new skill component
+    function addSkill() {
+        skillCount++;
+
+        // Create new input element
+        const inputElement = document.createElement('input');
+        inputElement.className = 'col form-control';
+        inputElement.type = 'text';
+        inputElement.required = true;
+        inputElement.placeholder = 'Ex. Skill';
+        inputElement.name = 'skills[' + skillCount + '][name]';
+
+        // Create new range element
+        const rangeElement = document.createElement('input');
+        rangeElement.className = 'col ';
+        rangeElement.type = 'range';
+        rangeElement.name = 'skills[' + skillCount + '][level]';
+
+        // Create new div for the skill
+        const skillDiv = document.createElement('div');
+
+        skillDiv.className = 'row';
+        skillDiv.id = 'skill_' + skillCount;
+        skillDiv.appendChild(inputElement);
+        skillDiv.appendChild(rangeElement);
+
+        // Append the new skill to the form
+        const formGroup = document.querySelector('.form-group');
+        formGroup.appendChild(document.createElement('br'));
+
+        formGroup.appendChild(skillDiv);
+        formGroup.appendChild(document.createElement('br'));
+    }
+
+    // Function to delete the last skill component
+    function deleteSkill() {
+        const formGroup = document.querySelector('.form-group');
+        const skills = formGroup.getElementsByClassName('row');
+        const lastSkill = skills[skills.length - 1];
+
+        // Remove the last skill
+        if (lastSkill) {
+            formGroup.removeChild(lastSkill);
+        }
+    }
+
+    // Add event listeners to the buttons
+    document.getElementById('add-skill-button').addEventListener('click', addSkill);
+    document.getElementById('delete-skill-button').addEventListener('click', deleteSkill);
+</script>
+</body>
 
 </html>
