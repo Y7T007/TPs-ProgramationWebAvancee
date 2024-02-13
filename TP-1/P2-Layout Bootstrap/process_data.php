@@ -4,29 +4,10 @@ session_start();
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Check if the form is submitted
 
-        // Check if 'pillData' is set in the POST data
-        if (isset($_POST['pillData']) && is_array($_POST['pillData'])) {
-            // Store the pillData array in the session
-            $_SESSION['pillList'] = $_POST['pillData'];
-        }
-
-// Check if there are pills in the session
-    if (isset($_SESSION['pillList']) && is_array($_SESSION['pillList'])) {
-        echo "<h2>Stored Pills:</h2>";
-        echo "<ul>";
-        foreach ($_SESSION['pillList'] as $pill) {
-            echo "<li>$pill</li>";
-        }
-        echo "</ul>";
-    } else {
-        echo "<p>No pills stored in the session.</p>";
-    }
-
-    // Initialize or retrieve the session data
-    if (!isset($_SESSION['form_data'])) {
-        $_SESSION['form_data'] = [];
+    $languages = $_POST['language'];
+    foreach ($languages as $language) {
+        echo $language . "<br>";
     }
 
     // Process personal information data
@@ -73,6 +54,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['skills']) && isset($_POST['language'])) {
         $skillsData = $_POST['skills'];
         $languagesData = $_POST['language'];
+        foreach ($languagesData as $language) {
+            echo $language . "<br>";
+        }
+        foreach ($skillsData as $skill) {
+            echo $skill['level'] . "<br>";
+        }
 
         $_SESSION['form_data']['skills'] = $skillsData;
         $_SESSION['form_data']['languages'] = $languagesData;
@@ -105,3 +92,5 @@ echo "<pre>";
 print_r($_SESSION['form_data']['languages']);
 echo "</pre>";
 ?>
+
+<a href="../Partie%202/home4.php">generate CV</a>

@@ -123,30 +123,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Checkbox inputs for languages -->
             <div class="row">
                 <div class="col">
-                    <input type="checkbox" id="english" name="language" value="English">
+                    <input type="checkbox" id="english" name="language[]" value="English">
                     <label for="english">English</label><br>
-                    <input type="checkbox" id="spanish" name="language" value="Spanish">
+                    <input type="checkbox" id="spanish" name="language[]" value="Spanish">
                     <label for="spanish">Spanish</label><br>
-                    <input type="checkbox" id="mandarin" name="language" value="Mandarin">
+                    <input type="checkbox" id="mandarin" name="language[]" value="Mandarin">
                     <label for="mandarin">Mandarin</label><br>
-                    <input type="checkbox" id="hindi" name="language" value="Hindi">
+                    <input type="checkbox" id="hindi" name="language[]" value="Hindi">
                     <label for="hindi">Hindi</label><br>
-                    <input type="checkbox" id="french" name="language" value="French">
+                    <input type="checkbox" id="french" name="language[]" value="French">
                     <label for="french">French</label><br>
 
 
                 </div>
                 <div class="col">
 
-                    <input type="checkbox" id="russian" name="language" value="Russian">
+                    <input type="checkbox" id="russian" name="language[]" value="Russian">
                     <label for="russian">Russian</label><br>
-                    <input type="checkbox" id="portuguese" name="language" value="Portuguese">
+                    <input type="checkbox" id="portuguese" name="language[]" value="Portuguese">
                     <label for="portuguese">Portuguese</label><br>
-                    <input type="checkbox" id="indonesian" name="language" value="Indonesian">
+                    <input type="checkbox" id="indonesian" name="language[]" value="Indonesian">
                     <label for="indonesian">Indonesian</label><br>
-                    <input type="checkbox" id="german" name="language" value="German">
+                    <input type="checkbox" id="german" name="language[]" value="German">
                     <label for="german">German</label><br>
-                    <input type="checkbox" id="arabic" name="language" value="Arabic">
+                    <input type="checkbox" id="arabic" name="language[]" value="Arabic">
                     <label for="arabic">Arabic</label><br>
 
                 </div>
