@@ -50,6 +50,9 @@ echo "Address: " . $_SESSION["address"] . "<br>";
     <h1>CV GENERATOR</h1>
 </div>
 <section style="margin-top: 44px;">
+    <form action="divers.php" method="POST">
+        
+    
     <section></section>
     <div class="steps-progressbar">
         <ul>
@@ -60,7 +63,7 @@ echo "Address: " . $_SESSION["address"] . "<br>";
     </div>
     <h1 class="text-center text-capitalize" style="margin: 55px;">expertise</h1>
     <div class="container">
-        <form id="application-form-expertise">
+        
             <div class="form-group mb-3">
                 <div id="form-container"></div>
 
@@ -68,56 +71,25 @@ echo "Address: " . $_SESSION["address"] . "<br>";
             <div class="justify-content-center d-flex form-group mb-3">
                 <button class="btn btn-success" type="button" onclick="addForm()">Add New Expertise</button>
             </div>
-        </form>
 
         <h1 class="text-center text-capitalize" style="margin: 55px;">Formation</h1>
-        <form id="application-form-formation">
             <div class="form-group mb-3">
-                <fieldset>
-                    <legend>
-                        <hr>
-                    </legend>
-                    <div class="row">
-                        <div class="col">
-                            <p><strong>School Name</strong>&nbsp;<span class="text-danger">*</span></p>
-                            <input class="form-control" type="text" required="" name="school[]" placeholder="Ex. John">
-                        </div>
-                        <div class="col">
-                            <p><strong>Study field</strong></p>
-                            <input class="form-control" type="text" required="" name="study_field[]" placeholder="Ex. Smith">
-                        </div>
-                    </div>
-                    <div class="col" style="margin-top: 13px;margin-bottom: 25px;">
-                        <p><strong>Description</strong></p>
-                        <input class="form-control" type="text" required="" name="formation_description[]" placeholder="Ex. John">
-                    </div>
-                    <div class="form-group mb-3">
-                        <div class="row">
-                            <div class="col">
-                                <p><strong>Starting Date</strong></p>
-                                <input class="form-control" type="date" required="" name="formation_start_date[]">
-                            </div>
-                            <div class="col">
-                                <p><strong>End Date</strong>&nbsp;<span class="text-danger">*</span></p>
-                                <input class="form-control" type="date" required="" name="formation_end_date[]">
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
+                <div id="formation-container"></div>
             </div>
             <div class="justify-content-center d-flex form-group mb-3">
-                <button class="btn btn-success" type="button" onclick="addFormationField()">Add Another Formation</button>
+                <button class="btn btn-success" type="button" onclick="addFormation()">Add Another Formation</button>
             </div>
 
             <div class="justify-content-center d-flex form-group mb-3">
-                <button class="btn btn-primary btn-light m-0 rounded-pill px-4" type="button" onclick="submitForm()">Submit</button>
             </div>
-        </form>
     </div>
     <div class="col">
         <h3 id="fail" class="text-center text-danger d-none"><br>Form not Submitted&nbsp;<a href="contact.html">Try Again</a><br><br></h3>
         <h3 id="success-1" class="text-center text-success d-none"><br>Form Submitted Successfully&nbsp;<a href="contact.html">Send Another Response</a><br><br></h3>
     </div>
+        <input class="btn btn-primary btn-light m-0 rounded-pill px-4" type="submit" onclick="submitForm()" value="Submit">
+
+    </form>
 </section>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/js/Application-Form-Bootstrap-Image-Uploader.js"></script>
@@ -251,6 +223,79 @@ function createDateRow() {
 
   const startDateCol = createInputCol('Starting Date', 'start_date[]');
   const endDateCol = createInputCol('End Date', 'end_date[]');
+
+  rowDiv.appendChild(startDateCol);
+  rowDiv.appendChild(endDateCol);
+
+  formGroupDiv.appendChild(rowDiv);
+
+  return formGroupDiv;
+}
+
+</script>
+<script>
+let formationCounter = 1;
+
+function addFormation() {
+  const formationContainer = document.getElementById('formation-container');
+
+  const fieldset = document.createElement('fieldset');
+  const legend = document.createElement('legend');
+  const hr = document.createElement('hr');
+  legend.appendChild(hr);
+  fieldset.appendChild(legend);
+
+  const rowDiv = document.createElement('div');
+  rowDiv.className = 'row';
+
+  const schoolCol = createInputCol('School Name', 'school[]');
+  const studyFieldCol = createInputCol('Study Field', 'study_field[]');
+
+  rowDiv.appendChild(schoolCol);
+  rowDiv.appendChild(studyFieldCol);
+
+  const descriptionCol = createInputCol('Description', 'formation_description[]', 'col', 'margin-top: 13px;margin-bottom: 25px;');
+  const dateRow = createDateRow('formation_start_date[]', 'formation_end_date[]');
+
+  fieldset.appendChild(rowDiv);
+  fieldset.appendChild(descriptionCol);
+  fieldset.appendChild(dateRow);
+
+  formationContainer.appendChild(fieldset);
+
+  formationCounter++;
+}
+
+function createInputCol(label, name, colClass = 'col', style = '') {
+  const colDiv = document.createElement('div');
+  colDiv.className = colClass;
+
+  const labelElement = document.createElement('p');
+  labelElement.innerHTML = `<strong>${label}</strong>&nbsp;<span class="text-danger">*</span>`;
+  colDiv.appendChild(labelElement);
+
+  const inputElement = document.createElement('input');
+  inputElement.className = 'form-control';
+  inputElement.type = 'text';
+  inputElement.required = true;
+  inputElement.name = `${name}[${formationCounter}]`;
+  inputElement.placeholder = `Ex. ${label}`;
+  colDiv.appendChild(inputElement);
+
+  colDiv.style.cssText = style;
+
+  return colDiv;
+}
+
+function createDateRow(startDateName, endDateName) {
+  const formGroupDiv = document.createElement('div');
+  formGroupDiv.className = 'form-group mb-3';
+
+  const rowDiv = document.createElement('div');
+  rowDiv.className = 'row';
+
+  const startDateCol = createInputCol('Starting Date', startDateName);
+  const endDateCol = createInputCol('End Date', endDateName);
 
   rowDiv.appendChild(startDateCol);
   rowDiv.appendChild(endDateCol);
