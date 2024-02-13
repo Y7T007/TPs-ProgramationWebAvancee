@@ -4,6 +4,26 @@ session_start();
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    // Check if the form is submitted
+
+        // Check if 'pillData' is set in the POST data
+        if (isset($_POST['pillData']) && is_array($_POST['pillData'])) {
+            // Store the pillData array in the session
+            $_SESSION['pillList'] = $_POST['pillData'];
+        }
+
+// Check if there are pills in the session
+    if (isset($_SESSION['pillList']) && is_array($_SESSION['pillList'])) {
+        echo "<h2>Stored Pills:</h2>";
+        echo "<ul>";
+        foreach ($_SESSION['pillList'] as $pill) {
+            echo "<li>$pill</li>";
+        }
+        echo "</ul>";
+    } else {
+        echo "<p>No pills stored in the session.</p>";
+    }
+
     // Initialize or retrieve the session data
     if (!isset($_SESSION['form_data'])) {
         $_SESSION['form_data'] = [];

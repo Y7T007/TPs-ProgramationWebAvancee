@@ -151,6 +151,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 </div>
             </div>
+            
+            
+<!--            TEXT AREA TO ADD EXTRA DIVEERS EACH TIME PUTING A WORD WITH PRESSING ENTER BUTTON, IT GOT A BORDER AROUND IT -->
+            <div class="form-group mb-3">
+                <br><br><br>
+                <h3>Divers</h3>
+                <div class="row">
+                    <div class="col">
+                        <textarea id="diversTextArea" onkeydown="handleEnter(event)"></textarea>
+
+                    </div>
+                    <div class="col">
+                        <div id="pillContainer"></div>
+
+                    </div>
+                </div>
+                <!-- Text area with a border -->
+
+                <!-- Container for displaying pills -->
+
+                <script>
+                    // JavaScript function to add a pill for each word/sentence on pressing Enter
+                    function handleEnter(event) {
+                        if (event.key === "Enter") {
+                            // Get the text from the textarea
+                            var inputText = document.getElementById("diversTextArea").value.trim();
+
+                            // Split the text into an array of words/sentences
+                            var words = inputText.split(/\s+/);
+
+                            // Create a pill for each word/sentence and append it to the container
+                            var pillContainer = document.getElementById("pillContainer");
+                            words.forEach(function (word) {
+                                if (word.length > 0) {
+                                    var pill = document.createElement("div");
+                                    pill.className = "pill";
+                                    pill.textContent = word;
+
+                                    // Create a delete button for each pill
+                                    var deleteButton = document.createElement("button");
+                                    deleteButton.className = "deleteButton";
+                                    deleteButton.textContent = "x";
+                                    deleteButton.onclick = function () {
+                                        // Remove the corresponding pill when the delete button is clicked
+                                        pillContainer.removeChild(pill);
+                                    };
+
+                                    // Append the delete button to the pill
+                                    pill.appendChild(deleteButton);
+
+                                    // Append the pill to the container
+                                    pillContainer.appendChild(pill);
+
+                                    // Add hidden input field to store the pill data for form submission
+                                    var hiddenInput = document.createElement("input");
+                                    hiddenInput.type = "hidden";
+                                    hiddenInput.name = "pillData[]";
+                                    hiddenInput.value = word;
+                                    pillContainer.appendChild(hiddenInput);
+                                }
+                            });
+
+                            // Clear the textarea
+                            document.getElementById("diversTextArea").value = '';
+                        }
+                    }
+                </script>
+                <style>
+                    /* Add some basic styling for the text area */
+                    textarea {
+                        border: 2px solid #ccc;
+                        padding: 5px;
+                        width: 300px;
+                        resize: none;
+                    }
+
+                    .deleteButton {
+                        cursor: pointer;
+                        margin-left: 5px;
+                        color: #ff0000;
+                        border: none;
+                        background: none;
+                        font-size: 12px;
+                    }
+
+                    /* Style for the pills */
+                    .pill {
+                        display: inline-block;
+                        background-color: #f0f0f0;
+                        padding: 5px;
+                        margin: 5px;
+                        border-radius: 10px;
+                    }
+                </style>
+            </div>
             <br><br><br>
             <div class="justify-content-center d-flex form-group mb-3">
                 <div id="submit-btn">
@@ -159,6 +254,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
             </div>
+            
+
         </form>
     </div>
     <div class="col">
