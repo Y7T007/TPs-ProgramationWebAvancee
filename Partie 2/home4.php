@@ -325,8 +325,8 @@ session_start();
 	<script src="js/magnific-popup.min.js"></script>
 	<script src="js/circle-progress.min.js"></script>
 	<script src="js/main.js"></script>
-        <button onclick="generatePDF()">Download PDF</button>
-        <button onclick="takeScreenshot()">Download Image</button>
+<!--        <button onclick="generatePDF()">Download PDF</button>-->
+<!--        <button onclick="takeScreenshot()">Download Image</button>-->
 
 
         <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
