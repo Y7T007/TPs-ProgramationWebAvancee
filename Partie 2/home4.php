@@ -1,5 +1,6 @@
 <?php
-session_start();?>
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +29,9 @@ session_start();?>
     <!-- Include pdfmake library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
     <!-- Include html-to-pdfmake library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-pdfmake/0.1.4/html-to-pdfmake.js"></script>
@@ -39,17 +43,17 @@ session_start();?>
 	<![endif]-->
 
 </head>
-<body>
+<body style="width: 2000px;height: 2400px">
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
 	
-	<div class="home-four-style">
+	<div class="home-four-style" id="CV">
 
 		<div class="container-fluid p-0">
 			<div class="row m-0">
-				<div class="col-xl-5 col-lg-5 p-0">
+				<div class="col">
 					<div class="main-left-area h-100">
 						<!-- hero section -->
 						<section class="intro-section">
@@ -176,7 +180,7 @@ session_start();?>
 <!--						</div>-->
 					</div>
 				</div>
-				<div class="col-xl-6 col-lg-7">
+				<div class="col">
 					<div class="main-right-area">
 						<!-- Resume section start -->
 						<section class="resume-section spad pt-0">
@@ -252,7 +256,7 @@ session_start();?>
                                 // JavaScript code for PDF generation
                                 document.getElementById('downloadPdf').addEventListener('click', function () {
                                     // Target the HTML element to be converted to PDF
-                                    var element = document.getElementById('yourRootElementId'); // Change 'yourRootElementId' to the actual ID of the root element
+                                    var element = document.getElementById('html'); // Change 'yourRootElementId' to the actual ID of the root element
 
                                     // Convert HTML to pdfmake format
                                     var pdfMakeContent = htmlToPdfmake(element.innerHTML);
@@ -294,8 +298,8 @@ session_start();?>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+            </div>
+        </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <button id="downloadPdf">Download PDF</button>
@@ -304,7 +308,7 @@ session_start();?>
             // JavaScript code for PDF generation
             document.getElementById('downloadPdf').addEventListener('click', function () {
                 // Target the HTML element to be converted to PDF
-                var element = document.getElementById('yourRootElementId'); // Change 'yourRootElementId' to the actual ID of the root element
+                var element = document.querySelector('html'); // Change 'yourRootElementId' to the actual ID of the root element
 
                 // Generate PDF
                 html2pdf(element);
@@ -323,5 +327,49 @@ session_start();?>
 	<script src="js/magnific-popup.min.js"></script>
 	<script src="js/circle-progress.min.js"></script>
 	<script src="js/main.js"></script>
+        <button onclick="takeScreenshot()">Take Screenshot</button>
+        <button onclick="takeScreenshotAndDownloadPdf(100)">Take Screenshot and download pdf</button>
+
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js" defer></script>
+
+        <script>
+            function takeScreenshotAndDownloadPdf(delay) {
+                setTimeout(function () {
+                    takeScreenshotAndConvertToPDF();  // Call your original capture function
+                }, delay);
+            }
+
+            function takeScreenshot() {
+                var elementToCapture = document.getElementById("CV");
+                html2canvas(elementToCapture, { useCORS: true }).then(function (canvas) {
+                    var image = canvas.toDataURL("image/png");
+                    var link = document.createElement('a');
+                    link.href = image;
+                    link.download = 'screenshot.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
+
+            function takeScreenshotAndConvertToPDF() {
+                var elementToCapture = document.getElementById("CV");
+                html2canvas(elementToCapture, { useCORS: true }).then(function (canvas) {
+                    var image = canvas.toDataURL("image/png");
+
+                    var pdf = new jsPDF();
+                    pdf.addImage(image, 'PNG', 0, 0, elementToCapture.offsetWidth, elementToCapture.offsetHeight);
+
+                    pdf.save('screenshot.pdf');
+                });
+            }
+        </script>
+
+
+
 </body>
+<br><br><br><br>
+hello world
 </html>
+

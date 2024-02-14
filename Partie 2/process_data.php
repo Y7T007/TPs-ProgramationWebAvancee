@@ -94,3 +94,32 @@ echo "</pre>";
 ?>
 
 <a href="./home4.php">generate CV</a>
+<a href="./Download.php">Dowlnload CV</a>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<button onclick="takeScreenshot()">Take Screenshot</button>
+
+<script>
+    function takeScreenshot() {
+        // Capture screenshot
+        html2canvas(document.body).then(function(canvas) {
+            // Convert the canvas to an image
+            var image = canvas.toDataURL("image/png");
+
+            // Create a download link
+            var link = document.createElement('a');
+            link.href = image;
+            link.download = 'screenshot.png';
+
+            // Append the link to the body
+            document.body.appendChild(link);
+
+            // Trigger the download
+            link.click();
+
+            // Remove the link from the body
+            document.body.removeChild(link);
+        });
+    }
+</script>
+
+
