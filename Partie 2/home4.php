@@ -55,7 +55,10 @@ session_start();
 			<div class="row m-0">
 				<div class="col">
 					<div class="main-left-area h-100">
-						<!-- hero section -->
+                        <button type="button" onclick="generatePDF()" class="btn btn-success">Download as PDF</button>
+                        <button type="button" onclick="takeScreenshot()" class="btn btn-primary">Download as Image</button>
+
+                        <!-- hero section -->
 						<section class="intro-section">
 							<figure class="hero-image">
                                 <?php
