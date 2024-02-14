@@ -6,7 +6,7 @@ session_start();?>
 <head>
 	<title>CV Resume</title>
 	<meta charset="UTF-8">
-	<meta name="description" content="Civic - CV Resume">
+	<meta name="description" content="Y7T007 - CV Resume">
 	<meta name="keywords" content="resume, civic, onepage, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->   
@@ -45,11 +45,40 @@ session_start();?>
 						<!-- hero section -->
 						<section class="intro-section">
 							<figure class="hero-image">
-								<img src="img/hero-3.jpg" alt="">
+                                <?php
+                                if (isset($_SESSION['image'])) {
+
+                                $imageData = base64_decode($_SESSION['image']);
+                                } else {
+                                    echo 'No image data found in the session.';
+                                }
+                                echo '<img style="height:500px" id="profile" src="data:image/jpeg;base64,' . base64_encode($imageData) . '" alt="">';
+
+                                ?>
 							</figure>
+                            <script>
+                                // JavaScript function to read the selected file and display the image
+                                function readURL(input) {
+                                    var uploadedImage = document.getElementById('profile');
+
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            // Set the source of the image element to the data URL of the selected file
+                                            uploadedImage.src = e.target.result;
+                                            // Display the image
+                                            uploadedImage.style.display = 'block';
+                                        };
+
+                                        // Read the selected file as a data URL
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                            </script>
 							<div class="hero-text">
 								<h2><?php echo($_SESSION["firstName"]);?><br><?php echo($_SESSION["lastName"]);?></h2>
-								<p>I<?php echo($_SESSION["title"]);?></p>
+								<p><?php echo($_SESSION["title"]);?></p>
 							</div>
 							<p class="mb-5"><?php echo($_SESSION["description"]);?></p>
 							<div class="hero-info pt-5">
@@ -129,13 +158,13 @@ session_start();?>
 							</ul>
 						</section>
 
-						<div class="social-links">
-							<a href=""><i class="fa fa-pinterest"></i></a>
-							<a href=""><i class="fa fa-linkedin"></i></a>
-							<a href=""><i class="fa fa-instagram"></i></a>
-							<a href=""><i class="fa fa-facebook"></i></a>
-							<a href=""><i class="fa fa-twitter"></i></a>
-						</div>
+<!--						<div class="social-links">-->
+<!--							<a href=""><i class="fa fa-pinterest"></i></a>-->
+<!--							<a href=""><i class="fa fa-linkedin"></i></a>-->
+<!--							<a href=""><i class="fa fa-instagram"></i></a>-->
+<!--							<a href=""><i class="fa fa-facebook"></i></a>-->
+<!--							<a href=""><i class="fa fa-twitter"></i></a>-->
+<!--						</div>-->
 					</div>
 				</div>
 				<div class="col-xl-6 col-lg-7">
@@ -241,9 +270,10 @@ session_start();?>
 	<!-- Footer section start -->
 
 	<!-- Footer section end -->
-		
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.0/html2pdf.bundle.min.js"></script>
 
-	<!--====== Javascripts & Jquery ======-->
+
+        <!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-2.1.4.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>

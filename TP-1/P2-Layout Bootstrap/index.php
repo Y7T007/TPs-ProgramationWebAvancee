@@ -36,7 +36,7 @@
     <h1>CV GENERATOR</h1>
 </div>
 <section style="margin-top: 44px;">
-    <form  action="expert.php" method="POST" >
+    <form  action="expert.php" method="POST" enctype="multipart/form-data">
 
     <section></section>
     <div class="steps-progressbar">
@@ -86,37 +86,30 @@
                 <div class="form-group mb-3"><p><strong>Your Picture </strong><span class="text-danger">*</span></p>
 <div class="file">
             <!-- Upload image input-->
-            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm ">
+    <div class="form-group mb-3">
+        <div class="file">
+            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
                 <input id="upload" type="file" onchange="readURL(this);" name="image" class="form-control border-0">
                 <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                 <div class="input-group-append">
-                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4">
+                        <i class="fa fa-cloud-upload mr-2 text-muted"></i>
+                        <small class="text-uppercase font-weight-bold text-muted">Choose file</small>
+                    </label>
                 </div>
             </div>
 
-            <!-- Uploaded image area-->
-            <p class="font-italic text-dark text-center">The image uploaded will be rendered inside the box below.</p>
-            <div class="image-area mt-4 text-dark"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"  width=200></div>
-<div class="col d-none">
-    <p><strong>URL</strong><span class="text-danger">*</span></p>
-    <input id="urllink" name="url" type="url" class="form-control" readonly/>
-</div>
-</div></div>
-            <div class="justify-content-center d-flex form-group mb-3">
-                <div id="submit-btn">
-                    <div class="row">
-                        <input class="btn btn-primary btn-light m-0 rounded-pill px-4" type="submit" style="min-width: 500px;" value="Next">
-                    </div>
-                </div>
-            </div>
+            <!-- Uploaded image area -->
+         
+        </div>
     </div>
-    <div class="col">
-        <h3 id="fail" class="text-center text-danger d-none">
-            <br>Form not Submitted&nbsp;<a href="contact.html">Try Again</a><br><br>
-        </h3>
-        <h3 id="success-1" class="text-center text-success d-none">
-            <br>Form Submitted Successfully&nbsp;<a href="contact.html">Send Another Response</a><br><br>
-        </h3>
+
+    <div class="justify-content-center d-flex form-group mb-3">
+        <div id="submit-btn">
+            <div class="row">
+                <input class="btn btn-primary btn-light m-0 rounded-pill px-4" type="submit" style="min-width: 500px;" value="Next">
+            </div>
+        </div>
     </div>
     </form>
 </section>

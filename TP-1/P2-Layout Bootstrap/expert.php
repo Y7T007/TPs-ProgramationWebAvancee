@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $phone = $_POST["phone"];
     $address = $_POST["address"];
+
     // Add more fields as needed
 
 // Store data in session
@@ -24,6 +25,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["phone"] = $_POST["phone"];
     $_SESSION["address"] = $_POST["address"];
     $_SESSION["image"] = $_POST["image"];
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        // Get the contents of the uploaded file
+        $imageData = file_get_contents($_FILES['image']['tmp_name']);
+
+        // Store the image data in the session
+        $_SESSION['image'] = base64_encode($imageData);
+    }
     // Add more fields as needed
 
     // Redirect to the next page
