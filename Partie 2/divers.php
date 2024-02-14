@@ -23,12 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ];
 
             // Display the collected expertise data
-            echo "<h2>Expertise $index:</h2>";
-            echo "Company: " . $expertise['company'] . "<br>";
-            echo "Job Title: " . $expertise['job_title'] . "<br>";
-            echo "Description: " . $expertise['description'] . "<br>";
-            echo "Start Date: " . $expertise['start_date'] . "<br>";
-            echo "End Date: " . $expertise['end_date'] . "<br>";
+//            echo "<h2>Expertise $index:</h2>";
+//            echo "Company: " . $expertise['company'] . "<br>";
+//            echo "Job Title: " . $expertise['job_title'] . "<br>";
+//            echo "Description: " . $expertise['description'] . "<br>";
+//            echo "Start Date: " . $expertise['start_date'] . "<br>";
+//            echo "End Date: " . $expertise['end_date'] . "<br>";
 
             $expertiseData[] = $expertise;
         }
@@ -50,12 +50,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ];
 
             // Display the collected formation data
-            echo "<h2>Formation $index:</h2>";
-            echo "School: " . $formation['school'] . "<br>";
-            echo "Study Field: " . $formation['study_field'] . "<br>";
-            echo "Description: " . $formation['formation_description'] . "<br>";
-            echo "Start Date: " . $formation['formation_start_date'] . "<br>";
-            echo "End Date: " . $formation['formation_end_date'] . "<br>";
+//            echo "<h2>Formation $index:</h2>";
+//            echo "School: " . $formation['school'] . "<br>";
+//            echo "Study Field: " . $formation['study_field'] . "<br>";
+//            echo "Description: " . $formation['formation_description'] . "<br>";
+//            echo "Start Date: " . $formation['formation_start_date'] . "<br>";
+//            echo "End Date: " . $formation['formation_end_date'] . "<br>";
 
             $formationsData[] = $formation;
         }

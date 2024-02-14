@@ -71,30 +71,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Display the collected data
-echo "<h2>Personal Information:</h2>";
-echo "<pre>";
-print_r($_SESSION['form_data']['personal_info']);
-echo "</pre>";
-
-echo "<h2>Expertise:</h2>";
-echo "<pre>";
-print_r($_SESSION['form_data']['expertise']);
-echo "</pre>";
-
-echo "<h2>Formations:</h2>";
-echo "<pre>";
-print_r($_SESSION['form_data']['formations']);
-echo "</pre>";
-
-echo "<h2>Skills:</h2>";
-echo "<pre>";
-print_r($_SESSION['form_data']['skills']);
-echo "</pre>";
-
-echo "<h2>Languages:</h2>";
-echo "<pre>";
-print_r($_SESSION['form_data']['languages']);
-echo "</pre>";
+//echo "<h2>Personal Information:</h2>";
+//echo "<pre>";
+//print_r($_SESSION['form_data']['personal_info']);
+//echo "</pre>";
+//
+//echo "<h2>Expertise:</h2>";
+//echo "<pre>";
+//print_r($_SESSION['form_data']['expertise']);
+//echo "</pre>";
+//
+//echo "<h2>Formations:</h2>";
+//echo "<pre>";
+//print_r($_SESSION['form_data']['formations']);
+//echo "</pre>";
+//
+//echo "<h2>Skills:</h2>";
+//echo "<pre>";
+//print_r($_SESSION['form_data']['skills']);
+//echo "</pre>";
+//
+//echo "<h2>Languages:</h2>";
+//echo "<pre>";
+//print_r($_SESSION['form_data']['languages']);
+//echo "</pre>";
 ?>
 
 <a href="./home4.php">generate CV</a>

@@ -1,15 +1,15 @@
 <?php
 session_start();
 
-echo "First Name: " . $_SESSION["firstName"] . "<br>";
-echo "Last Name: " . $_SESSION["lastName"] . "<br>";
-echo "Title: " . $_SESSION["title"] . "<br>";
-echo "Description: " . $_SESSION["description"] . "<br>";
-echo "Date of Birth: " . $_SESSION["dob"] . "<br>";
-echo "Email: " . $_SESSION["email"] . "<br>";
-echo "Phone: " . $_SESSION["phone"] . "<br>";
-echo "Address: " . $_SESSION["address"] . "<br>";
-echo "Image: " . $_SESSION["image"] . "<br>";
+//echo "First Name: " . $_SESSION["firstName"] . "<br>";
+//echo "Last Name: " . $_SESSION["lastName"] . "<br>";
+//echo "Title: " . $_SESSION["title"] . "<br>";
+//echo "Description: " . $_SESSION["description"] . "<br>";
+//echo "Date of Birth: " . $_SESSION["dob"] . "<br>";
+//echo "Email: " . $_SESSION["email"] . "<br>";
+//echo "Phone: " . $_SESSION["phone"] . "<br>";
+//echo "Address: " . $_SESSION["address"] . "<br>";
+//echo "Image: " . $_SESSION["image"] . "<br>";
 ?>
 
 <!DOCTYPE html>
