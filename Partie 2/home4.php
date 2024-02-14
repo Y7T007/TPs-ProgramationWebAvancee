@@ -128,11 +128,7 @@ session_start();
                                             <?php
                                             // Check if the form is submitted
 
-                                            // Check if 'pillData' is set in the POST data
-                                            if (isset($_POST['pillData']) && is_array($_POST['pillData'])) {
-                                                // Store the pillData array in the session
-                                                $_SESSION['pillList'] = $_POST['pillData'];
-                                            }
+                                           
 
                                             // Check if there are pills in the session
                                             if (isset($_SESSION['pillList']) && is_array($_SESSION['pillList'])) {

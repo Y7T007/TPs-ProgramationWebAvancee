@@ -12,20 +12,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Process personal information data
     $personalInfoData = [
-        'firstName' => $_POST['firstName'],
-        'lastName' => $_POST['lastName'],
-        'title' => $_POST['title'],
-        'description' => $_POST['description'],
-        'dob' => $_POST['dob'],
-        'email' => $_POST['email'],
-        'phone' => $_POST['phone'],
-        'address' => $_POST['address'],
-        'image' => $_POST['image'],
+        'firstName' => $_SESSION["firstName"],
+        'lastName' => $_SESSION["lastName"],
+        'title' => $_SESSION["title"],
+        'description' => $_SESSION["description"],
+        'dob' => $_SESSION["dob"],
+        'email' => $_SESSION["email"],
+        'phone' => $_SESSION["phone"],
+        'address' => $_SESSION["address"],
+        'image' => $_SESSION["image"],
         // Add more fields as needed
     ];
 
     $_SESSION['form_data']['personal_info'] = $personalInfoData;
-
+    // Check if 'pillData' is set in the POST data
+    if (isset($_POST['pillData']) && is_array($_POST['pillData'])) {
+        // Store the pillData array in the session
+        $_SESSION['pillList'] = $_POST['pillData'];
+    }
     // Process expertise data
     if (isset($_POST['expertise'])) {
         $_SESSION['form_data']['expertise'] = $_POST['expertise'];
