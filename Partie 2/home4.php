@@ -59,11 +59,12 @@ session_start();
 
                         <!-- hero section -->
                         <section class="intro-section">
+                            <div class="row">
+                                <button type="button" onclick="generatePDF()" class="btn btn-success">Download as PDF</button>
+                                <button type="button" onclick="takeScreenshot()" class="btn btn-primary">Download as Image</button>
+                            </div>
+                            <br><br><br><br>
                             <figure class="hero-image">
-                                <div class="row">
-                                    <button type="button" onclick="generatePDF()" class="btn btn-success">Download as PDF</button>
-                                    <button type="button" onclick="takeScreenshot()" class="btn btn-primary">Download as Image</button>
-                                </div>
 
                                 <?php
                                 if (isset($_SESSION['image'])) {
