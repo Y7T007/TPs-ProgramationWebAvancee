@@ -7,7 +7,7 @@
     <!-- Your content goes here -->
 
     <div class="container center">
-        <a class="waves-effect waves-light btn-large" href="#partie1">Partie 1</a>
+        <a class="waves-effect waves-light btn-large" href="./Partie%201/formulaire.php">Partie 1</a>
         <a class="waves-effect waves-light btn-large" href="./Partie%202/index.php">Partie 2 </a>
     </div>
 
