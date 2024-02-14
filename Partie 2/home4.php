@@ -302,7 +302,6 @@ session_start();
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <button id="downloadPdf">Download PDF</button>
 
         <script>
             // JavaScript code for PDF generation
@@ -327,8 +326,9 @@ session_start();
 	<script src="js/magnific-popup.min.js"></script>
 	<script src="js/circle-progress.min.js"></script>
 	<script src="js/main.js"></script>
-        <button onclick="takeScreenshot()">Take Screenshot</button>
-        <button onclick="takeScreenshotAndDownloadPdf(100)">Take Screenshot and download pdf</button>
+        <button onclick="generatePDF()">Download PDF</button>
+        <button onclick="takeScreenshot()">Download Image</button>
+
 
         <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js" defer></script>
@@ -336,13 +336,13 @@ session_start();
         <script>
             function takeScreenshotAndDownloadPdf(delay) {
                 setTimeout(function () {
-                    takeScreenshotAndConvertToPDF();  // Call your original capture function
+                    takeScreenshotAndSubmitForm();  // Call your original capture function and submit the form
                 }, delay);
             }
 
             function takeScreenshot() {
                 var elementToCapture = document.getElementById("CV");
-                html2canvas(elementToCapture, { useCORS: true }).then(function (canvas) {
+                html2canvas(elementToCapture,).then(function (canvas) {
                     var image = canvas.toDataURL("image/png");
                     var link = document.createElement('a');
                     link.href = image;
@@ -353,15 +353,59 @@ session_start();
                 });
             }
 
-            function takeScreenshotAndConvertToPDF() {
+            function takeScreenshotAndSubmitForm() {
                 var elementToCapture = document.getElementById("CV");
-                html2canvas(elementToCapture, { useCORS: true }).then(function (canvas) {
+                html2canvas(elementToCapture).then(function (canvas) {
                     var image = canvas.toDataURL("image/png");
 
-                    var pdf = new jsPDF();
-                    pdf.addImage(image, 'PNG', 0, 0, elementToCapture.offsetWidth, elementToCapture.offsetHeight);
+                    // Create FormData object and append the image data
+                    var formData = new FormData();
+                    formData.append("Files[0]", image);
 
-                    pdf.save('screenshot.pdf');
+                    // Create and configure XMLHttpRequest
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "https://v2.convertapi.com/convert/images/to/pdf?Secret=SHpJngUdcAm29CN6&download=attachment", true);
+
+                    // Set up event listeners for success and error
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            // Success, you can handle the response here if needed
+                            console.log("Conversion successful");
+                        } else {
+                            // Error handling
+                            console.error("Error in conversion:", xhr.status, xhr.statusText);
+                        }
+                    };
+
+                    // Send the FormData object as the request body
+                    xhr.send(formData);
+                });
+            }
+
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+        <script>
+            function generatePDF() {
+                // Créer une instance de jsPDF
+                var doc = new jsPDF();
+
+                // Options pour la génération du PDF
+                var options = {
+                    background: '#fff', // Couleur de fond
+                    pagesplit: true // Fractionnement automatique des pages en fonction du contenu
+                };
+
+                // Convertir la page HTML en canvas à l'aide de html2canvas
+                html2canvas(document.body, options).then(function(canvas) {
+                    // Convertir le canvas en image au format JPEG
+                    var imgData = canvas.toDataURL('image/jpeg');
+
+                    // Ajouter l'image au document PDF
+                    doc.addImage(imgData, 'JPEG', 0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize
+                        .getHeight());
+
+                    // Enregistrer le PDF
+                    doc.save('cv.pdf');
                 });
             }
         </script>
@@ -369,7 +413,6 @@ session_start();
 
 
 </body>
-<br><br><br><br>
-hello world
+
 </html>
 
