@@ -48,9 +48,9 @@ $_SESSION = array();
 
 
 //redirect to the form page
-header("Location: formulaire.php");
 
 
 // Terminate the script
 exit;
+header("Location: formulaire.php");
 ?>

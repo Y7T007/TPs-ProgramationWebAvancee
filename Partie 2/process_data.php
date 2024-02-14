@@ -98,6 +98,9 @@ echo "</pre>";
 ?>
 
 <a href="./home4.php">generate CV</a>
+<script>
+    window.location.href = "home4.php";
+</script>
 <a href="./Download.php">Dowlnload CV</a>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <button onclick="takeScreenshot()">Take Screenshot</button>
@@ -125,5 +128,6 @@ echo "</pre>";
         });
     }
 </script>
+
 
 
