@@ -24,6 +24,15 @@ session_start();?>
 	<link rel="stylesheet" href="css/style.css"/>
 
 
+
+    <!-- Include pdfmake library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+
+    <!-- Include html-to-pdfmake library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-pdfmake/0.1.4/html-to-pdfmake.js"></script>
+
+
 	<!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -237,7 +246,27 @@ session_start();?>
                             }
                             ?>
 							</div>
-							<!-- icon boxes -->
+                            <button id="downloadPdf">Download PDF</button>
+
+                            <script>
+                                // JavaScript code for PDF generation
+                                document.getElementById('downloadPdf').addEventListener('click', function () {
+                                    // Target the HTML element to be converted to PDF
+                                    var element = document.getElementById('yourRootElementId'); // Change 'yourRootElementId' to the actual ID of the root element
+
+                                    // Convert HTML to pdfmake format
+                                    var pdfMakeContent = htmlToPdfmake(element.innerHTML);
+
+                                    // Create a pdfmake document
+                                    var docDefinition = {
+                                        content: pdfMakeContent
+                                    };
+
+                                    // Generate PDF
+                                    pdfMake.createPdf(docDefinition).download('generated-pdf.pdf');
+                                });
+                            </script>
+                            <!-- icon boxes -->
 <!--							<div class="icon-box-area spad">-->
 <!--								<div class="icon-box">-->
 <!--									<i class="flaticon-032-cooking"></i>-->
@@ -270,7 +299,7 @@ session_start();?>
 	<!-- Footer section start -->
 
 	<!-- Footer section end -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.0/html2pdf.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
 
         <!--====== Javascripts & Jquery ======-->
