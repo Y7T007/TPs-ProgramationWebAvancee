@@ -36,7 +36,7 @@
     <h1>CV GENERATOR</h1>
 </div>
 <section style="margin-top: 44px;">
-    <form  action="expert.php" method="POST" enctype="multipart/form-data">
+    <form action="expert.php" method="POST" enctype="multipart/form-data">
 
     <section></section>
     <div class="steps-progressbar">

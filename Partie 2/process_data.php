@@ -93,4 +93,4 @@ print_r($_SESSION['form_data']['languages']);
 echo "</pre>";
 ?>
 
-<a href="../Partie%202/home4.php">generate CV</a>
+<a href="./home4.php">generate CV</a>
